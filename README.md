@@ -1,1 +1,504 @@
-# fabisgrill1
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Fabi's Grill | Mobile Menu - Temple Bar, Dublin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #1a120b;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+            color: #f5ede0;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1rem 3rem;
+        }
+
+        /* Header otimizado mobile */
+        .hero {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f3b33d, #e07c1f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero .sub {
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-top: 0.4rem;
+            border: 1px solid #e07c1f60;
+        }
+        .badge-location {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: #f3b33d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .badge-location span {
+            background: #2c1e12;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+
+        /* ========= TAB STYLES - MOBILE FIRST ========= */
+        .tabs-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #1a120b;
+            padding: 0.5rem 0 0.6rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #443829;
+            backdrop-filter: blur(2px);
+        }
+        .tabs-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            gap: 0.5rem;
+            padding: 0.3rem 0.8rem 0.6rem;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        .tabs-wrapper::-webkit-scrollbar {
+            height: 3px;
+        }
+        .tabs-wrapper::-webkit-scrollbar-track {
+            background: #2c1e12;
+            border-radius: 10px;
+        }
+        .tabs-wrapper::-webkit-scrollbar-thumb {
+            background: #e07c1f;
+            border-radius: 10px;
+        }
+        .tab-btn {
+            background: #2c1e12;
+            border: none;
+            color: #e6bc7e;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+        .tab-btn:active {
+            transform: scale(0.96);
+            background: #e07c1f;
+            color: #1a120b;
+        }
+        .tab-btn.active {
+            background: #e07c1f;
+            color: #1a120b;
+            box-shadow: 0 2px 8px rgba(224,124,31,0.4);
+        }
+
+        /* sections (tab content) */
+        .menu-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .menu-section.active-section {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            border-left: 5px solid #e07c1f;
+            padding-left: 0.8rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+        .cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* dish card - mobile otimizado */
+        .dish-card {
+            background: #2a211b;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.15s ease;
+            border: 1px solid #443829;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        .dish-card:active {
+            transform: scale(0.99);
+        }
+        .dish-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: #3e2c1e;
+            display: block;
+        }
+        .dish-info {
+            padding: 0.8rem 1rem 1rem;
+        }
+        .dish-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .dish-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f3cf93;
+            letter-spacing: -0.2px;
+        }
+        .dish-price {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #f3b33d;
+            background: #1e150f;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+        }
+        .dish-desc {
+            font-size: 0.8rem;
+            color: #cfc3b4;
+            line-height: 1.35;
+            margin: 0.25rem 0 0.5rem;
+        }
+        .allergen {
+            font-size: 0.65rem;
+            color: #e6bc7e;
+            background: #3b2a1c;
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #403528;
+            font-size: 0.7rem;
+            color: #b7a78a;
+            line-height: 1.4;
+        }
+
+        /* melhorias para toque */
+        button {
+            touch-action: manipulation;
+        }
+
+        @media (min-width: 480px) {
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.2rem;
+            }
+            .hero h1 { font-size: 2.5rem; }
+            .tab-btn { font-size: 0.8rem; padding: 0.55rem 1.2rem; }
+        }
+
+        @media (min-width: 768px) {
+            .container { padding: 1.5rem 2rem 3rem; }
+            .cards-grid { gap: 1.5rem; }
+            .dish-img { height: 170px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🔥 FABI'S GRILL</h1>
+        <div class="sub">✦ Brazilian Flame · Temple Bar ✦</div>
+        <div class="badge-location">
+            📍 Temple Bar · Dublin
+            <span>🕒 Open daily 12pm–11pm</span>
+            <span>🍖 Grill · Authentic</span>
+        </div>
+    </div>
+
+    <!-- TAB BUTTONS (scroll horizontal mobile) -->
+    <div class="tabs-container">
+        <div class="tabs-wrapper" id="tabs-wrapper">
+            <button class="tab-btn active" data-tab="sides">🥔 SIDES</button>
+            <button class="tab-btn" data-tab="maincourse">🥩 MAIN</button>
+            <button class="tab-btn" data-tab="burgers">🍔 BURGERS</button>
+            <button class="tab-btn" data-tab="pasteis">🥟 PASTÉIS</button>
+            <button class="tab-btn" data-tab="students">🎓 STUDENTS</button>
+            <button class="tab-btn" data-tab="vegetarian">🌱 VEGAN</button>
+            <button class="tab-btn" data-tab="chefspecial">👑 CHEF</button>
+            <button class="tab-btn" data-tab="kids">🍟 KIDS</button>
+            <button class="tab-btn" data-tab="desserts">🍰 DESSERTS</button>
+            <button class="tab-btn" data-tab="drinks">🥤 DRINKS</button>
+            <button class="tab-btn" data-tab="toppings">🧀 TOPPINGS</button>
+        </div>
+    </div>
+
+    <!-- ALL SECTIONS -->
+    <div id="sides" class="menu-section active-section"><h2 class="section-title">🥔 SIDES</h2><div class="cards-grid" id="sides-grid"></div></div>
+    <div id="maincourse" class="menu-section"><h2 class="section-title">🥩 MAIN COURSE</h2><div class="cards-grid" id="maincourse-grid"></div></div>
+    <div id="burgers" class="menu-section"><h2 class="section-title">🍔 BURGERS & SNACKS</h2><div class="cards-grid" id="burgers-grid"></div></div>
+    <div id="pasteis" class="menu-section"><h2 class="section-title">🥟 PASTÉIS · BRAZILIAN PASTRIES</h2><div class="cards-grid" id="pasteis-grid"></div></div>
+    <div id="students" class="menu-section"><h2 class="section-title">🎓 STUDENTS MEAL</h2><div class="cards-grid" id="students-grid"></div></div>
+    <div id="vegetarian" class="menu-section"><h2 class="section-title">🌱 VEGETARIAN</h2><div class="cards-grid" id="vegetarian-grid"></div></div>
+    <div id="chefspecial" class="menu-section"><h2 class="section-title">👑 CHEF'S SPECIAL</h2><div class="cards-grid" id="chefspecial-grid"></div></div>
+    <div id="kids" class="menu-section"><h2 class="section-title">🍟 KIDS MENU</h2><div class="cards-grid" id="kids-grid"></div></div>
+    <div id="desserts" class="menu-section"><h2 class="section-title">🍰 DESSERTS</h2><div class="cards-grid" id="desserts-grid"></div></div>
+    <div id="drinks" class="menu-section"><h2 class="section-title">🥤 DRINKS</h2><div class="cards-grid" id="drinks-grid"></div></div>
+    <div id="toppings" class="menu-section"><h2 class="section-title">🧀 TOPPINGS · ADD-ONS</h2><div class="cards-grid" id="toppings-grid"></div></div>
+
+    <div class="footer-note">
+        <span>🔥 Fabi's Grill - 8 Essex Street East, Temple Bar, Dublin 2</span><br>
+        <span>📋 Allergens: G1(Gluten) | D(Dairy) | E(Eggs) | SS(Sulphites) | MS(Mustard) | F(Fish) | SB(Sesame) | N(Nuts)</span><br>
+        <span>🍽️ Illustrative photos · Ask at counter</span>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // IMAGES (Base64 ilustrações otimizadas para mobile)
+    // --------------------------------------------------------------
+    const sideImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233d2a1c'/%3E%3Ccircle cx='100' cy='120' r='28' fill='%23b55a1a'/%3E%3Crect x='220' y='90' width='80' height='55' fill='%23cd7540'/%3E%3C/svg%3E";
+    const mainImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23322a1f'/%3E%3Cpath d='M80 130 L180 70 L280 130 L220 180 L120 170Z' fill='%23b55a1a'/%3E%3C/svg%3E";
+    const burgerImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233e2b1c'/%3E%3Ccircle cx='200' cy='110' r='45' fill='%239e4a1a'/%3E%3Crect x='130' y='100' width='140' height='18' fill='%23f5c542'/%3E%3C/svg%3E";
+    const pastelImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%2336271c'/%3E%3Cpath d='M120 110 L210 80 L270 130 L200 170 L130 160Z' fill='%23d48e36'/%3E%3C/svg%3E";
+    const dessertImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233b2c1f'/%3E%3Ccircle cx='200' cy='120' r='45' fill='%23c97b39'/%3E%3C/svg%3E";
+    const drinkImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23463121'/%3E%3Crect x='160' y='80' width='80' height='100' fill='%23a4662e'/%3E%3C/svg%3E";
+    const studentImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233a2c20'/%3E%3Crect x='100' y='100' width='80' height='50' fill='%239c551d'/%3E%3C/svg%3E";
+    const vegImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233e3529'/%3E%3Ccircle cx='150' cy='120' r='35' fill='%23805331'/%3E%3C/svg%3E";
+    const kidsImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233d2e22'/%3E%3Ccircle cx='180' cy='120' r='40' fill='%23d48e36'/%3E%3C/svg%3E";
+    const toppingImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233a2a1c'/%3E%3Crect x='140' y='100' width='120' height='40' fill='%23c97b39'/%3E%3C/svg%3E";
+
+    function createCard(name, price, desc, allergen, imgSrc) {
+        return { name, price, desc, allergen, img: imgSrc };
+    }
+
+    // ======================== DATA ========================
+    const sides = [
+        createCard("RICE", "€4.50", "White rice.", "G1", sideImg),
+        createCard("BEANS", "€4.50", "Black or carioca beans.", "G1", sideImg),
+        createCard("FRIES", "€4.50", "Crispy french fries.", "", sideImg),
+        createCard("CASSAVA FLOUR", "€2", "Toasted cassava flour (farofa).", "G1; G4", sideImg),
+        createCard("MAYONNAISE POTATO SALAD", "€4.50", "Creamy potato salad with mayo.", "E", sideImg),
+        createCard("VINAIGRETTE", "€4.50", "Fresh tomato & onion vinaigrette.", "", sideImg),
+        createCard("LEAF SALAD", "€4.50", "Mixed green salad.", "", sideImg),
+        createCard("SHOESTRING POTATO", "€4", "Crispy shoestring potatoes.", "", sideImg),
+        createCard("CRISPY ONION", "€3", "Crispy fried onions.", "G1", sideImg),
+        createCard("FRIED EGGS (2UN)", "€3", "Two fried eggs.", "E", sideImg),
+        createCard("FEIJOADA EXTRA", "€10.50", "Extra feijoada portion.", "G1; G4", sideImg),
+        createCard("FEIJÃO TROPEIRO", "€5.50", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImg),
+        createCard("SMALL", "€4.50", "Small portion.", "G1; G4; E", sideImg),
+        createCard("LARGE", "€9.95", "Large portion.", "G1; G4; E", sideImg),
+        createCard("SWEETCORN & CHEESE SAUCE", "€3", "Creamy sweetcorn with cheese.", "D", sideImg),
+        createCard("2 PICANHAS STEAK", "€15.50", "Two picanha slices.", "", sideImg),
+        createCard("1 PICANHA STEAK", "€10", "One picanha slice.", "", sideImg),
+        createCard("2 GRILLED BEEF", "€9.95", "Two grilled beef steaks.", "", sideImg),
+        createCard("2 GRILLED CHICKEN OR MILANESA", "€9.95", "Two grilled or breaded chicken.", "G1; D; E", sideImg)
+    ];
+
+    const mains = [
+        createCard("CHURRASCO PARA DOIS", "€59", "Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides.", "E", mainImg),
+        createCard("CONTRA FILÉ A CAVALO", "€18.95", "Sirloin steak topped with fried egg.", "E", mainImg),
+        createCard("PICANHA DA CASA", "€22.50", "2 succulent picanha steaks + 5 sides.", "", mainImg),
+        createCard("PICANHA SIMPLES", "€18.50", "1 picanha steak + 3 sides.", "", mainImg),
+        createCard("FEIJOADA TRADICIONAL", "€18.45", "Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.", "G1; D; E", mainImg),
+        createCard("PARMEGIANA", "€17.95", "Breaded beef or chicken topped with tomato sauce & mozzarella. Served with rice and fries or potato salad.", "G1; D; E", mainImg),
+        createCard("BIFE OU FRANGO COM CREME DE MILHO", "€15.95", "Breaded steak or chicken with creamy sweetcorn sauce, rice and fries.", "G1; D", mainImg),
+        createCard("TILAPIA", "€16.50", "2 breaded tilapia fillets with rice, beans, fries and salad.", "G1; F; SB", mainImg),
+        createCard("STROGONOFF (CARNE OU FRANGO)", "€15.95", "Beef or chicken stroganoff with rice and shoestring potatoes or fries.", "G1; D; MS", mainImg)
+    ];
+
+    const burgers = [
+        createCard("X-BURGER", "€12", "8oz burger with melted cheese & truffled mayo on brioche bun. (from 4pm)", "G1; D; E; SS", burgerImg),
+        createCard("X-BACON BURGER", "€14.50", "8oz burger with bacon, melted cheese & truffled mayo.", "G1; D; E; SS", burgerImg),
+        createCard("X-SALADA BURGER", "€14.50", "8oz burger with lettuce, tomato, cheese & truffled mayo.", "G1; D; E; SS", burgerImg),
+        createCard("SMASH BURGER", "€14.50", "Double smash burger with double cheese, sautéed onion, pickles & truffle mayo.", "G1; D; E; SS", burgerImg),
+        createCard("SALGADOS FRITOS / PÃO DE QUEIJO (un)", "€3.50", "Brazilian deep-fried snacks: coxinha, cheese ball, risoles, kibe or cheese bread.", "G1; D", burgerImg),
+        createCard("PORÇÃO MINI SALGADOS", "€18.95", "20 mini Brazilian fried snacks.", "G1; D", burgerImg),
+        createCard("CHICKEN WINGS AND FRIES", "€12.50", "8 buffalo wings (hot or BBQ) served with fries.", "", burgerImg)
+    ];
+
+    const pasteis = [
+        createCard("PASTEL CARNE (Beef)", "€7.95", "Minced beef.", "", pastelImg),
+        createCard("CARNE COM QUEIJO", "€8.45", "Beef and cheese.", "", pastelImg),
+        createCard("CARNE COM AZEITONA", "€8.45", "Beef and olives.", "", pastelImg),
+        createCard("ESPECIAL CARNE", "€8.45", "Beef, egg and olives.", "", pastelImg),
+        createCard("BAURU", "€7.95", "Ham, cheese and oregano.", "", pastelImg),
+        createCard("BAURU COM REQUEIJÃO", "€8.95", "Ham, cheese, cream cheese and oregano.", "", pastelImg),
+        createCard("FRANGO (Chicken)", "€7.95", "Shredded chicken.", "", pastelImg),
+        createCard("FRANGO COM QUEIJO", "€8.45", "Chicken and cheese.", "", pastelImg),
+        createCard("FRANGO COM REQUEIJÃO", "€8.95", "Chicken and cream cheese.", "", pastelImg),
+        createCard("FRANGO COM QUEIJO E AZEITONA", "€8.45", "Chicken, cheese and olives.", "", pastelImg),
+        createCard("CALABRESA", "€7.95", "Smoked sausage.", "", pastelImg),
+        createCard("CALABRESA COM QUEIJO", "€8.45", "Smoked sausage and cheese.", "", pastelImg),
+        createCard("VEGETARIAN", "€7.95", "Cheese, tomato and oregano.", "", pastelImg),
+        createCard("QUEIJO", "€7.95", "Cheese.", "", pastelImg),
+        createCard("PALMITO COM QUEIJO", "€8.45", "Palm heart and cheese.", "", pastelImg),
+        createCard("PALMITO COM QUEIJO, MILHO, AZEITONA E TOMATE", "€8.45", "Palm heart, cheese, sweetcorn, olives and tomato.", "", pastelImg)
+    ];
+
+    const students = [
+        createCard("PF BIFE OU FRANGO ACEBOLADO", "€14.99", "Grilled beef or chicken with sautéed onions, rice, beans, fries or salad.", "G1; D; E", studentImg),
+        createCard("FEIJOADA SIMPLES", "€14.99", "Feijoada with rice, farofa and cabbage.", "G1; D4", studentImg),
+        createCard("MILANESA (CARNE OU FRANGO)", "€14.99", "Breaded beef or chicken deep fried with rice, beans and fries.", "G1; D; E", studentImg),
+        createCard("PICANHA OFFER", "€15.50", "1 grilled picanha steak served with fries or salad.", "", studentImg)
+    ];
+
+    const vegetarian = [
+        createCard("FEIJOADA DE TOFU", "€15.95", "Black bean stew with tofu and vegetables. Served with rice, cabbage, vinaigrette and farofa.", "G1; G4; SB", vegImg),
+        createCard("PARMEGIANA DE BERINJELA", "€15.95", "Breaded aubergine with tomato sauce and mozzarella. Served with rice and fries or potato salad.", "G1; D; E", vegImg),
+        createCard("STROGONOFF DE PALMITO", "€15.95", "Palm heart stroganoff with mushrooms. Served with rice and shoestring potatoes or fries.", "G1; D; MS", vegImg)
+    ];
+
+    const chefSpecials = [
+        createCard("PICANHA EXPERIENCE", "€22.50 p/p", "Prime picanha topped with creamy cheese sauce + 4 unlimited sides. (minimum 2 people)", "G1; D", mainImg),
+        createCard("PARMEGIANA EXPERIENCE", "€22.50 p/p", "Huge breaded beef topped with 4-cheese sauce + unlimited sides. (minimum 2 people)", "G1; D; E", mainImg)
+    ];
+
+    const kids = [
+        createCard("NUGGETS", "€9.75", "Chicken nuggets served with french fries.", "G1; E; D", kidsImg),
+        createCard("SUPER HERO / PRINCESS MEAL", "€9.75", "Grilled chicken or beef filet with rice, beans and fries or salad.", "G1", kidsImg)
+    ];
+
+    const desserts = [
+        createCard("BRIGADEIRO/BEIJINHO", "€3.25", "Brazilian chocolate truffle or coconut truffle.", "D; E", dessertImg),
+        createCard("PUDIM", "€4.95", "Creamy Brazilian-style flan with caramel sauce.", "D; E", dessertImg),
+        createCard("MOUSSE DE MARACUJÁ", "€4.95", "Creamy tangy passion fruit mousse.", "D; E", dessertImg),
+        createCard("BOLO DE POTE", "€6.95", "Layers of soft cake and creamy filling (check available flavors).", "G1; D; E; N", dessertImg)
+    ];
+
+    const drinks = [
+        createCard("Guaraná 330ml", "€3.75", "", "", drinkImg),
+        createCard("Guaraná Zero 330ml", "€3.75", "", "", drinkImg),
+        createCard("Coke 330ml", "€3.75", "", "", drinkImg),
+        createCard("Coke Zero 330ml", "€3.75", "", "", drinkImg),
+        createCard("Fanta or 7up 330ml", "€3.75", "", "", drinkImg),
+        createCard("Sparkling Water", "€2.95", "", "", drinkImg),
+        createCard("Still Water", "€2.75", "", "", drinkImg),
+        createCard("FRESH JUICES", "€5", "Orange, Pineapple, Pineapple & mint, Strawberry, Mix Berry.", "", drinkImg),
+        createCard("SMOOTHIE (Strawberry)", "€5.95", "Strawberry smoothie.", "", drinkImg)
+    ];
+
+    const toppings = [
+        createCard("Sweetcorn / Olives / Onion / Tomato", "€1 each", "Extra topping per item.", "", toppingImg),
+        createCard("Cheese / Ham / Bacon / Cream Cheese", "€2 each", "Cheese, ham, bacon or cream cheese.", "D", toppingImg),
+        createCard("Palmito (Palm heart)", "€3", "", "", toppingImg)
+    ];
+
+    function render(containerId, items) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        let html = '';
+        for (let item of items) {
+            let allergenHtml = item.allergen ? `<div class="allergen">⚠️ ${item.allergen}</div>` : '';
+            html += `
+                <div class="dish-card">
+                    <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <span class="dish-name">${item.name}</span>
+                            <span class="dish-price">${item.price}</span>
+                        </div>
+                        <div class="dish-desc">${item.desc}</div>
+                        ${allergenHtml}
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    // Render all
+    render("sides-grid", sides);
+    render("maincourse-grid", mains);
+    render("burgers-grid", burgers);
+    render("pasteis-grid", pasteis);
+    render("students-grid", students);
+    render("vegetarian-grid", vegetarian);
+    render("chefspecial-grid", chefSpecials);
+    render("kids-grid", kids);
+    render("desserts-grid", desserts);
+    render("drinks-grid", drinks);
+    render("toppings-grid", toppings);
+
+    // ========= TAB SWITCHING MOBILE =========
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sectionsMap = {
+        sides: document.getElementById('sides'),
+        maincourse: document.getElementById('maincourse'),
+        burgers: document.getElementById('burgers'),
+        pasteis: document.getElementById('pasteis'),
+        students: document.getElementById('students'),
+        vegetarian: document.getElementById('vegetarian'),
+        chefspecial: document.getElementById('chefspecial'),
+        kids: document.getElementById('kids'),
+        desserts: document.getElementById('desserts'),
+        drinks: document.getElementById('drinks'),
+        toppings: document.getElementById('toppings')
+    };
+
+    function activateTab(tabId) {
+        Object.values(sectionsMap).forEach(sec => { if(sec) sec.classList.remove('active-section'); });
+        if(sectionsMap[tabId]) sectionsMap[tabId].classList.add('active-section');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+    }
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabId = btn.getAttribute('data-tab');
+            if(tabId && sectionsMap[tabId]) {
+                activateTab(tabId);
+                // smooth scroll to top of menu content for better UX on mobile
+                document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    activateTab('sides');
+</script>
+</body>
+</html>
