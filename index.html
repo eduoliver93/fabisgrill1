@@ -165,11 +165,13 @@
         .dish-card:active {
             transform: scale(0.99);
         }
+        /* IMAGEM CORRIGIDA - APARECE INTEIRA! */
         .dish-img {
             width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background: #3e2c1e;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #2a211b;
             display: block;
         }
         .dish-info {
@@ -241,7 +243,7 @@
         @media (min-width: 768px) {
             .container { padding: 1.5rem 2rem 3rem; }
             .cards-grid { gap: 1.5rem; }
-            .dish-img { height: 170px; }
+            .dish-img { aspect-ratio: 16 / 9; }
         }
     </style>
 </head>
