@@ -302,18 +302,19 @@
 
 <script>
     // --------------------------------------------------------------
-    // IMAGES (Base64 ilustrações otimizadas para mobile)
+    // IMAGENS REAIS
     // --------------------------------------------------------------
-    const sideImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233d2a1c'/%3E%3Ccircle cx='100' cy='120' r='28' fill='%23b55a1a'/%3E%3Crect x='220' y='90' width='80' height='55' fill='%23cd7540'/%3E%3C/svg%3E";
-    const mainImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23322a1f'/%3E%3Cpath d='M80 130 L180 70 L280 130 L220 180 L120 170Z' fill='%23b55a1a'/%3E%3C/svg%3E";
-    const burgerImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233e2b1c'/%3E%3Ccircle cx='200' cy='110' r='45' fill='%239e4a1a'/%3E%3Crect x='130' y='100' width='140' height='18' fill='%23f5c542'/%3E%3C/svg%3E";
-    const pastelImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%2336271c'/%3E%3Cpath d='M120 110 L210 80 L270 130 L200 170 L130 160Z' fill='%23d48e36'/%3E%3C/svg%3E";
-    const dessertImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233b2c1f'/%3E%3Ccircle cx='200' cy='120' r='45' fill='%23c97b39'/%3E%3C/svg%3E";
-    const drinkImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23463121'/%3E%3Crect x='160' y='80' width='80' height='100' fill='%23a4662e'/%3E%3C/svg%3E";
-    const studentImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233a2c20'/%3E%3Crect x='100' y='100' width='80' height='50' fill='%239c551d'/%3E%3C/svg%3E";
-    const vegImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233e3529'/%3E%3Ccircle cx='150' cy='120' r='35' fill='%23805331'/%3E%3C/svg%3E";
-    const kidsImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233d2e22'/%3E%3Ccircle cx='180' cy='120' r='40' fill='%23d48e36'/%3E%3C/svg%3E";
-    const toppingImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%233a2a1c'/%3E%3Crect x='140' y='100' width='120' height='40' fill='%23c97b39'/%3E%3C/svg%3E";
+    const sideImg = "images/sides-placeholder.jpg";
+    const mainImg = "images/main-placeholder.jpg";
+    const picanhaSimplesImg = "images/picanha-simples.jpg";
+    const burgerImg = "images/burger-placeholder.jpg";
+    const pastelImg = "images/pastel-placeholder.jpg";
+    const dessertImg = "images/dessert-placeholder.jpg";
+    const drinkImg = "images/drink-placeholder.jpg";
+    const studentImg = "images/student-placeholder.jpg";
+    const vegImg = "images/veg-placeholder.jpg";
+    const kidsImg = "images/kids-placeholder.jpg";
+    const toppingImg = "images/topping-placeholder.jpg";
 
     function createCard(name, price, desc, allergen, imgSrc) {
         return { name, price, desc, allergen, img: imgSrc };
@@ -346,7 +347,7 @@
         createCard("CHURRASCO PARA DOIS", "€59", "Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides.", "E", mainImg),
         createCard("CONTRA FILÉ A CAVALO", "€18.95", "Sirloin steak topped with fried egg.", "E", mainImg),
         createCard("PICANHA DA CASA", "€22.50", "2 succulent picanha steaks + 5 sides.", "", mainImg),
-        createCard("PICANHA SIMPLES", "€18.50", "1 picanha steak + 3 sides.", "", mainImg),
+        createCard("PICANHA SIMPLES", "€18.50", "1 picanha steak + 3 sides.", "", picanhaSimplesImg),
         createCard("FEIJOADA TRADICIONAL", "€18.45", "Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.", "G1; D; E", mainImg),
         createCard("PARMEGIANA", "€17.95", "Breaded beef or chicken topped with tomato sauce & mozzarella. Served with rice and fries or potato salad.", "G1; D; E", mainImg),
         createCard("BIFE OU FRANGO COM CREME DE MILHO", "€15.95", "Breaded steak or chicken with creamy sweetcorn sauce, rice and fries.", "G1; D", mainImg),
@@ -498,7 +499,6 @@
             const tabId = btn.getAttribute('data-tab');
             if(tabId && sectionsMap[tabId]) {
                 activateTab(tabId);
-                // smooth scroll to top of menu content for better UX on mobile
                 document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
