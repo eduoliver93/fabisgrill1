@@ -223,7 +223,6 @@
             margin-top: 0.2rem;
         }
 
-        /* Botão Choose Sides */
         .choose-sides-btn {
             background: #e07c1f;
             border: none;
@@ -295,11 +294,11 @@
         <div class="tabs-wrapper" id="tabs-wrapper">
             <button class="tab-btn active" data-tab="maincourse">🥩 MAIN</button>
             <button class="tab-btn" data-tab="sidemeals">🍚 SIDE MEALS</button>
-            <button class="tab-btn" data-tab="sides">🥔 SIDES</button>
             <button class="tab-btn" data-tab="students">🎓 STUDENTS</button>
             <button class="tab-btn" data-tab="vegetarian">🌱 VEGAN</button>
             <button class="tab-btn" data-tab="chefspecial">👑 CHEF</button>
             <button class="tab-btn" data-tab="kids">🍟 KIDS</button>
+            <button class="tab-btn" data-tab="sides">🥔 SIDES</button>
             <button class="tab-btn" data-tab="burgers">🍔 BURGERS</button>
             <button class="tab-btn" data-tab="pasteis">🥟 PASTÉIS</button>
             <button class="tab-btn" data-tab="toppings">🧀 TOPPINGS</button>
@@ -310,11 +309,11 @@
 
     <div id="maincourse" class="menu-section active-section"><h2 class="section-title">🥩 MAIN COURSE</h2><div class="cards-grid" id="maincourse-grid"></div></div>
     <div id="sidemeals" class="menu-section"><h2 class="section-title">🍚 SIDE MEALS</h2><div class="cards-grid" id="sidemeals-grid"></div></div>
-    <div id="sides" class="menu-section"><h2 class="section-title">🥔 SIDES</h2><div class="cards-grid" id="sides-grid"></div></div>
     <div id="students" class="menu-section"><h2 class="section-title">🎓 STUDENTS MEAL</h2><div class="cards-grid" id="students-grid"></div></div>
     <div id="vegetarian" class="menu-section"><h2 class="section-title">🌱 VEGETARIAN</h2><div class="cards-grid" id="vegetarian-grid"></div></div>
     <div id="chefspecial" class="menu-section"><h2 class="section-title">👑 CHEF'S SPECIAL</h2><div class="cards-grid" id="chefspecial-grid"></div></div>
     <div id="kids" class="menu-section"><h2 class="section-title">🍟 KIDS MENU</h2><div class="cards-grid" id="kids-grid"></div></div>
+    <div id="sides" class="menu-section"><h2 class="section-title">🥔 SIDES</h2><div class="cards-grid" id="sides-grid"></div></div>
     <div id="burgers" class="menu-section"><h2 class="section-title">🍔 BURGERS & SNACKS (From 4pm)</h2><div class="cards-grid" id="burgers-grid"></div></div>
     <div id="pasteis" class="menu-section"><h2 class="section-title">🥟 PASTÉIS · BRAZILIAN PASTRIES</h2><div class="cards-grid" id="pasteis-grid"></div></div>
     <div id="toppings" class="menu-section"><h2 class="section-title">🧀 TOPPINGS · ADD-ONS</h2><div class="cards-grid" id="toppings-grid"></div></div>
@@ -387,12 +386,10 @@
         return { name, price, desc, allergen, img: imgSrc, showSideButton };
     }
 
-    // Função para navegar para a aba SIDE MEALS
     function goToSideMeals() {
         const sideMealsTab = document.querySelector('.tab-btn[data-tab="sidemeals"]');
         if (sideMealsTab) {
             sideMealsTab.click();
-            // Scroll suave para o topo da seção
             setTimeout(() => {
                 document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
@@ -577,11 +574,11 @@
     const sectionsMap = {
         maincourse: document.getElementById('maincourse'),
         sidemeals: document.getElementById('sidemeals'),
-        sides: document.getElementById('sides'),
         students: document.getElementById('students'),
         vegetarian: document.getElementById('vegetarian'),
         chefspecial: document.getElementById('chefspecial'),
         kids: document.getElementById('kids'),
+        sides: document.getElementById('sides'),
         burgers: document.getElementById('burgers'),
         pasteis: document.getElementById('pasteis'),
         toppings: document.getElementById('toppings'),
