@@ -126,19 +126,6 @@
             box-shadow: 0 2px 8px rgba(224,124,31,0.4);
         }
 
-        /* DESTAQUE para abas MAIN e STUDENTS */
-        .tab-btn.highlight-tab {
-            background: linear-gradient(135deg, #e07c1f, #c0392b);
-            color: white;
-            box-shadow: 0 0 12px rgba(224,124,31,0.6);
-            border: 1px solid #f3b33d;
-        }
-
-        .tab-btn.highlight-tab.active {
-            background: linear-gradient(135deg, #f3b33d, #e07c1f);
-            box-shadow: 0 0 16px rgba(243,179,61,0.8);
-        }
-
         .menu-section {
             display: none;
             animation: fadeIn 0.25s ease;
@@ -159,14 +146,6 @@
             padding-left: 0.8rem;
             margin-bottom: 1.2rem;
             font-weight: 600;
-        }
-
-        /* DESTAQUE para títulos das seções MAIN e STUDENTS */
-        .section-title.highlight-title {
-            border-left-color: #f3b33d;
-            background: linear-gradient(90deg, rgba(224,124,31,0.2), transparent);
-            padding: 0.5rem 0.8rem;
-            border-radius: 0 20px 20px 0;
         }
 
         .cards-grid {
@@ -218,24 +197,15 @@
             color: #f3cf93;
         }
 
-        /* Destaque padrao para o PREÇO */
+        /* PREÇO PADRAO - MAIS COMPACTO */
         .dish-price {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 800;
             color: #f3b33d;
             background: #1e150f;
-            padding: 0.2rem 0.8rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 30px;
             transition: all 0.2s ease;
-        }
-
-        /* DESTAQUE ESPECIAL para preços de MAIN e STUDENTS */
-        .dish-price.highlight-price {
-            background: linear-gradient(135deg, #e07c1f, #c0392b);
-            color: white;
-            font-size: 1.25rem;
-            padding: 0.25rem 1rem;
-            box-shadow: 0 2px 8px rgba(224,124,31,0.4);
         }
 
         .dish-desc {
@@ -324,9 +294,9 @@
 
     <div class="tabs-container">
         <div class="tabs-wrapper" id="tabs-wrapper">
-            <button class="tab-btn active highlight-tab" data-tab="maincourse">🥩 MAIN</button>
+            <button class="tab-btn active" data-tab="maincourse">🥩 MAIN</button>
             <button class="tab-btn" data-tab="sidemeals">🍚 SIDE MEALS</button>
-            <button class="tab-btn highlight-tab" data-tab="students">🎓 STUDENTS</button>
+            <button class="tab-btn" data-tab="students">🎓 STUDENTS</button>
             <button class="tab-btn" data-tab="vegetarian">🌱 VEGAN</button>
             <button class="tab-btn" data-tab="chefspecial">👑 CHEF</button>
             <button class="tab-btn" data-tab="kids">🍟 KIDS</button>
@@ -339,9 +309,9 @@
         </div>
     </div>
 
-    <div id="maincourse" class="menu-section active-section"><h2 class="section-title highlight-title">🥩 MAIN COURSE 🔥</h2><div class="cards-grid" id="maincourse-grid"></div></div>
+    <div id="maincourse" class="menu-section active-section"><h2 class="section-title">🥩 MAIN COURSE</h2><div class="cards-grid" id="maincourse-grid"></div></div>
     <div id="sidemeals" class="menu-section"><h2 class="section-title">🍚 SIDE MEALS</h2><div class="cards-grid" id="sidemeals-grid"></div></div>
-    <div id="students" class="menu-section"><h2 class="section-title highlight-title">🎓 STUDENTS MEAL 🔥</h2><div class="cards-grid" id="students-grid"></div></div>
+    <div id="students" class="menu-section"><h2 class="section-title">🎓 STUDENTS MEAL</h2><div class="cards-grid" id="students-grid"></div></div>
     <div id="vegetarian" class="menu-section"><h2 class="section-title">🌱 VEGETARIAN</h2><div class="cards-grid" id="vegetarian-grid"></div></div>
     <div id="chefspecial" class="menu-section"><h2 class="section-title">👑 CHEF'S SPECIAL</h2><div class="cards-grid" id="chefspecial-grid"></div></div>
     <div id="kids" class="menu-section"><h2 class="section-title">🍟 KIDS MENU</h2><div class="cards-grid" id="kids-grid"></div></div>
@@ -414,8 +384,8 @@
     const kidsImg = "images/kids-placeholder.jpg";
     const toppingImg = "images/topping-placeholder.jpg";
 
-    function createCard(name, price, desc, allergen, imgSrc, showSideButton = false, isHighlight = false) {
-        return { name, price, desc, allergen, img: imgSrc, showSideButton, isHighlight };
+    function createCard(name, price, desc, allergen, imgSrc, showSideButton = false) {
+        return { name, price, desc, allergen, img: imgSrc, showSideButton };
     }
 
     function goToSideMeals() {
@@ -428,137 +398,137 @@
         }
     }
 
-    // ======================== MAIN COURSE (COM DESTAQUE NOS PREÇOS) ========================
+    // ======================== MAIN COURSE ========================
     const mains = [
-        createCard("CHURRASCO PARA DOIS", "€59", "Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides of your choice.", "G1", mainImages.churrascoDois, true, true),
-        createCard("CONTRA FILÉ A CAVALO", "€18.95", "Prime sirloin steak with fried egg. Served with 3 sides of your choice.", "E", mainImages.contraFile, true, true),
-        createCard("PICANHA DA CASA", "€22.50", "2 succulent prime picanha steaks. Served with 5 sides of your choice.", "G1", mainImages.picanhaCasa, true, true),
-        createCard("PICANHA SIMPLES", "€18.50", "1 prime picanha steak. Served with 3 sides of your choice.", "G1", mainImages.picanhaSimples, true, true),
-        createCard("FEIJOADA TRADICIONAL", "€18.45", "Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.", "G1; G4", mainImages.feijoada, false, true),
-        createCard("PARMEGIANA", "€17.95", "Breaded beef or chicken with tomato sauce & mozzarella. Served with rice and potato salad.", "G1; D; E", mainImages.parmegiana, false, true),
-        createCard("BIFE OU FRANGO COM CREME DE MILHO", "€15.95", "Breaded steak or chicken with creamy cheesy sweetcorn sauce. Served with rice and fries.", "G1; D", mainImages.bifeMilho, false, true),
-        createCard("TILAPIA", "€16.50", "2 breaded tilapia fillets with rice, beans, fries and salad.", "G1; F; SB", mainImages.tilapia, false, true),
-        createCard("STROGONOFF (CARNE OU FRANGO)", "€15.95", "Beef or chicken stroganoff in creamy sauce. Served with rice and shoestring potatoes or fries.", "G1; D; MS", mainImages.strogonoff, false, true)
+        createCard("CHURRASCO PARA DOIS", "€59", "Mix of picanha, Toscana sausage & grilled chicken. Served with 4 sides of your choice.", "G1", mainImages.churrascoDois, true),
+        createCard("CONTRA FILÉ A CAVALO", "€18.95", "Prime sirloin steak with fried egg. Served with 3 sides of your choice.", "E", mainImages.contraFile, true),
+        createCard("PICANHA DA CASA", "€22.50", "2 succulent prime picanha steaks. Served with 5 sides of your choice.", "G1", mainImages.picanhaCasa, true),
+        createCard("PICANHA SIMPLES", "€18.50", "1 prime picanha steak. Served with 3 sides of your choice.", "G1", mainImages.picanhaSimples, true),
+        createCard("FEIJOADA TRADICIONAL", "€18.45", "Traditional black bean stew with meats. Served with rice, farofa, vinaigrette, cabbage, pork belly & orange.", "G1; G4", mainImages.feijoada, false),
+        createCard("PARMEGIANA", "€17.95", "Breaded beef or chicken with tomato sauce & mozzarella. Served with rice and potato salad.", "G1; D; E", mainImages.parmegiana, false),
+        createCard("BIFE OU FRANGO COM CREME DE MILHO", "€15.95", "Breaded steak or chicken with creamy cheesy sweetcorn sauce. Served with rice and fries.", "G1; D", mainImages.bifeMilho, false),
+        createCard("TILAPIA", "€16.50", "2 breaded tilapia fillets with rice, beans, fries and salad.", "G1; F; SB", mainImages.tilapia, false),
+        createCard("STROGONOFF (CARNE OU FRANGO)", "€15.95", "Beef or chicken stroganoff in creamy sauce. Served with rice and shoestring potatoes or fries.", "G1; D; MS", mainImages.strogonoff, false)
     ];
 
-    // ======================== STUDENTS (COM DESTAQUE NOS PREÇOS) ========================
+    // ======================== STUDENTS ========================
     const students = [
-        createCard("PF BIFE OU FRANGO ACEBOLADO", "€14.99", "Grilled beef or chicken with sautéed onions, rice, beans and fries or salad.", "G1", studentImg, false, true),
-        createCard("FEIJOADA SIMPLES", "€14.99", "Traditional black bean stew with meats. Served with rice, farofa and cabbage.", "G1; G4", studentImg, false, true),
-        createCard("MILANESA (CARNE OU FRANGO)", "€14.99", "Breaded beef or chicken deep fried with rice, beans and fries.", "G1; D; E", studentImg, false, true),
-        createCard("PICANHA OFFER", "€15.50", "1 grilled picanha steak served with fries or salad.", "G1", studentImg, false, true)
+        createCard("PF BIFE OU FRANGO ACEBOLADO", "€14.99", "Grilled beef or chicken with sautéed onions, rice, beans and fries or salad.", "G1", studentImg, false),
+        createCard("FEIJOADA SIMPLES", "€14.99", "Traditional black bean stew with meats. Served with rice, farofa and cabbage.", "G1; G4", studentImg, false),
+        createCard("MILANESA (CARNE OU FRANGO)", "€14.99", "Breaded beef or chicken deep fried with rice, beans and fries.", "G1; D; E", studentImg, false),
+        createCard("PICANHA OFFER", "€15.50", "1 grilled picanha steak served with fries or salad.", "G1", studentImg, false)
     ];
 
     // ======================== SIDE MEALS ========================
     const sideMeals = [
-        createCard("RICE", "", "White rice. (may contain G1)", "G1", sideMealImages.rice, false, false),
-        createCard("BEANS", "", "Black or carioca beans. (may contain G1)", "G1", sideMealImages.beans, false, false),
-        createCard("FAROFA", "", "Toasted cassava flour. (may contain G1; G4)", "G1; G4", sideMealImages.farofa, false, false),
-        createCard("FRIES", "", "Crispy french fries.", "", sideMealImages.fries, false, false),
-        createCard("VINAIGRETTE", "", "Fresh tomato & onion vinaigrette.", "", sideMealImages.vinaigrette, false, false),
-        createCard("FEIJÃO TROPEIRO", "", "Beans with farofa, egg & bacon.", "G1; G4; E", sideMealImages.feijaoTropeiro, false, false),
-        createCard("LEAF SALAD WITH TOMATO", "", "Mixed green salad with tomato.", "", sideMealImages.leafSalad, false, false),
-        createCard("MAYONNAISE POTATO SALAD", "", "Creamy potato salad with mayo.", "E", sideMealImages.mayoPotatoSalad, false, false)
+        createCard("RICE", "", "White rice. (may contain G1)", "G1", sideMealImages.rice, false),
+        createCard("BEANS", "", "Black or carioca beans. (may contain G1)", "G1", sideMealImages.beans, false),
+        createCard("FAROFA", "", "Toasted cassava flour. (may contain G1; G4)", "G1; G4", sideMealImages.farofa, false),
+        createCard("FRIES", "", "Crispy french fries.", "", sideMealImages.fries, false),
+        createCard("VINAIGRETTE", "", "Fresh tomato & onion vinaigrette.", "", sideMealImages.vinaigrette, false),
+        createCard("FEIJÃO TROPEIRO", "", "Beans with farofa, egg & bacon.", "G1; G4; E", sideMealImages.feijaoTropeiro, false),
+        createCard("LEAF SALAD WITH TOMATO", "", "Mixed green salad with tomato.", "", sideMealImages.leafSalad, false),
+        createCard("MAYONNAISE POTATO SALAD", "", "Creamy potato salad with mayo.", "E", sideMealImages.mayoPotatoSalad, false)
     ];
 
     // ======================== SIDES ========================
     const sides = [
-        createCard("RICE", "€4.50", "White rice.", "G1", sideImages.rice, false, false),
-        createCard("BEANS", "€4.50", "Black or carioca beans.", "G1", sideImages.beans, false, false),
-        createCard("FRIES", "€4.50", "Crispy french fries.", "", sideImages.fries, false, false),
-        createCard("CASSAVA FLOUR", "€2", "Toasted cassava flour (farofa).", "G1; G4", sideImages.cassavaFlour, false, false),
-        createCard("MAYONNAISE POTATO SALAD", "€4.50", "Creamy potato salad with mayo.", "E", sideImages.mayoPotatoSalad, false, false),
-        createCard("VINAIGRETTE", "€2.50", "Fresh tomato & onion vinaigrette.", "", sideImages.vinaigrette, false, false),
-        createCard("LEAF SALAD", "€4.50", "Mixed green salad.", "", sideImages.leafSalad, false, false),
-        createCard("SHOESTRING POTATO", "€4", "Crispy shoestring potatoes.", "G1", sideImages.shoestringPotato, false, false),
-        createCard("CRISPY ONION", "€2", "Crispy fried onions.", "G1", sideImages.crispyOnion, false, false),
-        createCard("FRIED EGGS (2UN)", "€3", "Two fried eggs.", "E", sideImages.friedEggs, false, false),
-        createCard("FEIJOADA EXTRA", "€10.50", "Extra feijoada portion.", "G1", sideImages.feijoadaExtra, false, false),
-        createCard("FEIJÃO TROPEIRO (Small)", "€5.50", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroSmall, false, false),
-        createCard("FEIJÃO TROPEIRO (Large)", "€9.95", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroLarge, false, false),
-        createCard("SWEETCORN & CHEESE SAUCE", "€3.95", "Creamy sweetcorn with cheese.", "D", sideImages.sweetcornCheese, false, false),
-        createCard("2 PICANHAS STEAK", "€15.50", "Two picanha slices.", "", sideImages.twoPicanhas, false, false),
-        createCard("1 PICANHA STEAK", "€10", "One picanha slice.", "", sideImages.onePicanha, false, false),
-        createCard("2 GRILLED BEEF OR MILANESA", "€9.95", "Two grilled or breaded beef.", "G1; D; E", sideImages.twoGrilledBeef, false, false),
-        createCard("2 GRILLED CHICKEN OR MILANESA", "€9.95", "Two grilled or breaded chicken.", "G1; D; E", sideImages.twoGrilledChicken, false, false)
+        createCard("RICE", "€4.50", "White rice.", "G1", sideImages.rice, false),
+        createCard("BEANS", "€4.50", "Black or carioca beans.", "G1", sideImages.beans, false),
+        createCard("FRIES", "€4.50", "Crispy french fries.", "", sideImages.fries, false),
+        createCard("CASSAVA FLOUR", "€2", "Toasted cassava flour (farofa).", "G1; G4", sideImages.cassavaFlour, false),
+        createCard("MAYONNAISE POTATO SALAD", "€4.50", "Creamy potato salad with mayo.", "E", sideImages.mayoPotatoSalad, false),
+        createCard("VINAIGRETTE", "€2.50", "Fresh tomato & onion vinaigrette.", "", sideImages.vinaigrette, false),
+        createCard("LEAF SALAD", "€4.50", "Mixed green salad.", "", sideImages.leafSalad, false),
+        createCard("SHOESTRING POTATO", "€4", "Crispy shoestring potatoes.", "G1", sideImages.shoestringPotato, false),
+        createCard("CRISPY ONION", "€2", "Crispy fried onions.", "G1", sideImages.crispyOnion, false),
+        createCard("FRIED EGGS (2UN)", "€3", "Two fried eggs.", "E", sideImages.friedEggs, false),
+        createCard("FEIJOADA EXTRA", "€10.50", "Extra feijoada portion.", "G1", sideImages.feijoadaExtra, false),
+        createCard("FEIJÃO TROPEIRO (Small)", "€5.50", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroSmall, false),
+        createCard("FEIJÃO TROPEIRO (Large)", "€9.95", "Beans with farofa, egg & bacon.", "G1; G4; E", sideImages.feijaoTropeiroLarge, false),
+        createCard("SWEETCORN & CHEESE SAUCE", "€3.95", "Creamy sweetcorn with cheese.", "D", sideImages.sweetcornCheese, false),
+        createCard("2 PICANHAS STEAK", "€15.50", "Two picanha slices.", "", sideImages.twoPicanhas, false),
+        createCard("1 PICANHA STEAK", "€10", "One picanha slice.", "", sideImages.onePicanha, false),
+        createCard("2 GRILLED BEEF OR MILANESA", "€9.95", "Two grilled or breaded beef.", "G1; D; E", sideImages.twoGrilledBeef, false),
+        createCard("2 GRILLED CHICKEN OR MILANESA", "€9.95", "Two grilled or breaded chicken.", "G1; D; E", sideImages.twoGrilledChicken, false)
     ];
 
     // ======================== VEGETARIAN ========================
     const vegetarian = [
-        createCard("FEIJOADA DE TOFU", "€15.95", "Black bean stew with tofu and vegetables. Served with rice, cabbage, vinaigrette and farofa.", "G1; G4; SB", vegImg, false, false),
-        createCard("PARMEGIANA DE BERINJELA", "€15.95", "Breaded aubergine with tomato sauce and mozzarella. Served with rice and fries or potato salad.", "G1; D; E", vegImg, false, false),
-        createCard("STROGONOFF DE PALMITO", "€15.95", "Palm heart stroganoff with mushrooms. Served with rice and shoestring potatoes or fries.", "G1; D; MS", vegImg, false, false)
+        createCard("FEIJOADA DE TOFU", "€15.95", "Black bean stew with tofu and vegetables. Served with rice, cabbage, vinaigrette and farofa.", "G1; G4; SB", vegImg, false),
+        createCard("PARMEGIANA DE BERINJELA", "€15.95", "Breaded aubergine with tomato sauce and mozzarella. Served with rice and fries or potato salad.", "G1; D; E", vegImg, false),
+        createCard("STROGONOFF DE PALMITO", "€15.95", "Palm heart stroganoff with mushrooms. Served with rice and shoestring potatoes or fries.", "G1; D; MS", vegImg, false)
     ];
 
     // ======================== CHEF'S SPECIAL ========================
     const chefSpecials = [
-        createCard("PICANHA EXPERIENCE", "€22.50 p/p", "Prime picanha with creamy cheese sauce + 4 unlimited sides. (minimum 2 people)", "G1; D", mainImages.picanhaSimples, false, false),
-        createCard("PARMEGIANA EXPERIENCE", "€22.50 p/p", "Huge breaded beef with 4-cheese sauce + unlimited sides. (minimum 2 people)", "G1; D; E", mainImages.parmegiana, false, false)
+        createCard("PICANHA EXPERIENCE", "€22.50 p/p", "Prime picanha with creamy cheese sauce + 4 unlimited sides. (minimum 2 people)", "G1; D", mainImages.picanhaSimples, false),
+        createCard("PARMEGIANA EXPERIENCE", "€22.50 p/p", "Huge breaded beef with 4-cheese sauce + unlimited sides. (minimum 2 people)", "G1; D; E", mainImages.parmegiana, false)
     ];
 
     // ======================== KIDS ========================
     const kids = [
-        createCard("NUGGETS", "€9.75", "Chicken nuggets served with french fries.", "G1; E; D", kidsImg, false, false),
-        createCard("SUPER HERO / PRINCESS MEAL", "€9.75", "Grilled chicken or beef fillet with rice, beans and fries or salad.", "G1", kidsImg, false, false)
+        createCard("NUGGETS", "€9.75", "Chicken nuggets served with french fries.", "G1; E; D", kidsImg, false),
+        createCard("SUPER HERO / PRINCESS MEAL", "€9.75", "Grilled chicken or beef fillet with rice, beans and fries or salad.", "G1", kidsImg, false)
     ];
 
     // ======================== BURGERS ========================
     const burgers = [
-        createCard("X-BURGER", "€12", "8oz burger with melted cheese & truffled mayo on brioche bun.", "G1; D; E; SS", burgerImg, false, false),
-        createCard("X-BACON BURGER", "€14.50", "8oz burger with bacon, melted cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false, false),
-        createCard("X-SALADA BURGER", "€14.50", "8oz burger with lettuce, tomato, cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false, false),
-        createCard("SMASH BURGER", "€14.50", "Double smash burger with double cheese, onion, pickles & truffle mayo.", "G1; D; E; SS", burgerImg, false, false),
-        createCard("SALGADOS FRITOS / PÃO DE QUEIJO", "€3.50", "Coxinha, cheese ball, risoles, kibe or cheese bread.", "G1; D", burgerImg, false, false),
-        createCard("PORÇÃO MINI SALGADOS", "€18.95", "20 mini Brazilian fried snacks.", "G1; D", burgerImg, false, false),
-        createCard("CHICKEN WINGS AND FRIES", "€12.50", "8 buffalo wings (hot or BBQ) served with fries.", "", burgerImg, false, false)
+        createCard("X-BURGER", "€12", "8oz burger with melted cheese & truffled mayo on brioche bun.", "G1; D; E; SS", burgerImg, false),
+        createCard("X-BACON BURGER", "€14.50", "8oz burger with bacon, melted cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false),
+        createCard("X-SALADA BURGER", "€14.50", "8oz burger with lettuce, tomato, cheese & truffled mayo.", "G1; D; E; SS", burgerImg, false),
+        createCard("SMASH BURGER", "€14.50", "Double smash burger with double cheese, onion, pickles & truffle mayo.", "G1; D; E; SS", burgerImg, false),
+        createCard("SALGADOS FRITOS / PÃO DE QUEIJO", "€3.50", "Coxinha, cheese ball, risoles, kibe or cheese bread.", "G1; D", burgerImg, false),
+        createCard("PORÇÃO MINI SALGADOS", "€18.95", "20 mini Brazilian fried snacks.", "G1; D", burgerImg, false),
+        createCard("CHICKEN WINGS AND FRIES", "€12.50", "8 buffalo wings (hot or BBQ) served with fries.", "", burgerImg, false)
     ];
 
     // ======================== PASTÉIS ========================
     const pasteis = [
-        createCard("PASTEL CARNE (Beef)", "€7.95", "Minced beef.", "", pastelImg, false, false),
-        createCard("CARNE COM QUEIJO", "€8.45", "Beef and cheese.", "", pastelImg, false, false),
-        createCard("CARNE COM AZEITONA", "€8.45", "Beef and olives.", "", pastelImg, false, false),
-        createCard("ESPECIAL CARNE", "€8.45", "Beef, egg and olives.", "", pastelImg, false, false),
-        createCard("BAURU", "€7.95", "Ham, cheese and oregano.", "", pastelImg, false, false),
-        createCard("BAURU COM REQUEIJÃO", "€8.45", "Ham, cheese, cream cheese and oregano.", "", pastelImg, false, false),
-        createCard("FRANGO (Chicken)", "€7.95", "Shredded chicken.", "", pastelImg, false, false),
-        createCard("FRANGO COM QUEIJO", "€8.45", "Chicken and cheese.", "", pastelImg, false, false),
-        createCard("FRANGO COM REQUEIJÃO", "€8.95", "Chicken and cream cheese.", "", pastelImg, false, false),
-        createCard("FRANGO COM QUEIJO E AZEITONA", "€8.45", "Chicken, cheese and olives.", "", pastelImg, false, false),
-        createCard("CALABRESA", "€7.95", "Smoked sausage.", "", pastelImg, false, false),
-        createCard("CALABRESA COM QUEIJO", "€8.45", "Smoked sausage and cheese.", "", pastelImg, false, false),
-        createCard("VEGETARIAN QUEIJO", "€7.95", "Cheese.", "", pastelImg, false, false),
-        createCard("PIZZA", "€7.95", "Cheese, tomato and oregano.", "", pastelImg, false, false),
-        createCard("PALMITO COM QUEIJO", "€7.95", "Palm heart and cheese.", "", pastelImg, false, false),
-        createCard("PALMITO COM QUEIJO, MILHO, AZEITONA E TOMATE", "€7.95", "Palm heart, cheese, sweetcorn, olives and tomato.", "", pastelImg, false, false)
+        createCard("PASTEL CARNE (Beef)", "€7.95", "Minced beef.", "", pastelImg, false),
+        createCard("CARNE COM QUEIJO", "€8.45", "Beef and cheese.", "", pastelImg, false),
+        createCard("CARNE COM AZEITONA", "€8.45", "Beef and olives.", "", pastelImg, false),
+        createCard("ESPECIAL CARNE", "€8.45", "Beef, egg and olives.", "", pastelImg, false),
+        createCard("BAURU", "€7.95", "Ham, cheese and oregano.", "", pastelImg, false),
+        createCard("BAURU COM REQUEIJÃO", "€8.45", "Ham, cheese, cream cheese and oregano.", "", pastelImg, false),
+        createCard("FRANGO (Chicken)", "€7.95", "Shredded chicken.", "", pastelImg, false),
+        createCard("FRANGO COM QUEIJO", "€8.45", "Chicken and cheese.", "", pastelImg, false),
+        createCard("FRANGO COM REQUEIJÃO", "€8.95", "Chicken and cream cheese.", "", pastelImg, false),
+        createCard("FRANGO COM QUEIJO E AZEITONA", "€8.45", "Chicken, cheese and olives.", "", pastelImg, false),
+        createCard("CALABRESA", "€7.95", "Smoked sausage.", "", pastelImg, false),
+        createCard("CALABRESA COM QUEIJO", "€8.45", "Smoked sausage and cheese.", "", pastelImg, false),
+        createCard("VEGETARIAN QUEIJO", "€7.95", "Cheese.", "", pastelImg, false),
+        createCard("PIZZA", "€7.95", "Cheese, tomato and oregano.", "", pastelImg, false),
+        createCard("PALMITO COM QUEIJO", "€7.95", "Palm heart and cheese.", "", pastelImg, false),
+        createCard("PALMITO COM QUEIJO, MILHO, AZEITONA E TOMATE", "€7.95", "Palm heart, cheese, sweetcorn, olives and tomato.", "", pastelImg, false)
     ];
 
     // ======================== TOPPINGS ========================
     const toppings = [
-        createCard("Sweetcorn / Olives / Onion / Tomato", "€1 each", "Extra topping per item.", "", toppingImg, false, false),
-        createCard("Cheese / Ham / Bacon / Cream Cheese", "€2 each", "", "D", toppingImg, false, false),
-        createCard("Palmito (Palm heart)", "€3", "", "", toppingImg, false, false)
+        createCard("Sweetcorn / Olives / Onion / Tomato", "€1 each", "Extra topping per item.", "", toppingImg, false),
+        createCard("Cheese / Ham / Bacon / Cream Cheese", "€2 each", "", "D", toppingImg, false),
+        createCard("Palmito (Palm heart)", "€3", "", "", toppingImg, false)
     ];
 
     // ======================== DESSERTS ========================
     const desserts = [
-        createCard("BRIGADEIRO/BEIJINHO", "€3.25", "Brazilian chocolate truffle or coconut truffle.", "", dessertImg, false, false),
-        createCard("PUDIM", "€4.95", "Creamy Brazilian-style flan with caramel sauce.", "D; E", dessertImg, false, false),
-        createCard("MOUSSE DE MARACUJÁ", "€4.95", "Creamy tangy passion fruit mousse.", "D; E", dessertImg, false, false),
-        createCard("BOLO DE POTE", "€6.95", "Layers of cake and creamy filling (check availability).", "G1; D; E; N", dessertImg, false, false)
+        createCard("BRIGADEIRO/BEIJINHO", "€3.25", "Brazilian chocolate truffle or coconut truffle.", "", dessertImg, false),
+        createCard("PUDIM", "€4.95", "Creamy Brazilian-style flan with caramel sauce.", "D; E", dessertImg, false),
+        createCard("MOUSSE DE MARACUJÁ", "€4.95", "Creamy tangy passion fruit mousse.", "D; E", dessertImg, false),
+        createCard("BOLO DE POTE", "€6.95", "Layers of cake and creamy filling (check availability).", "G1; D; E; N", dessertImg, false)
     ];
 
     // ======================== DRINKS ========================
     const drinks = [
-        createCard("Guaraná 330ml", "€3.75", "", "", drinkImg, false, false),
-        createCard("Guaraná Zero 330ml", "€4.50", "", "", drinkImg, false, false),
-        createCard("Coke 330ml", "€3.75", "", "", drinkImg, false, false),
-        createCard("Coke Zero 330ml", "€3.75", "", "", drinkImg, false, false),
-        createCard("Fanta or 7up 330ml", "€3.75", "", "", drinkImg, false, false),
-        createCard("Sparkling Water", "€2.95", "", "", drinkImg, false, false),
-        createCard("Still Water", "€2.75", "", "", drinkImg, false, false),
-        createCard("FRESH JUICES", "€5 - €5.50", "Orange, Pineapple, Pineapple & mint, Strawberry, Mix Berry.", "", drinkImg, false, false),
-        createCard("SMOOTHIE", "€5.95", "Strawberry or Mix Berry.", "", drinkImg, false, false)
+        createCard("Guaraná 330ml", "€3.75", "", "", drinkImg, false),
+        createCard("Guaraná Zero 330ml", "€4.50", "", "", drinkImg, false),
+        createCard("Coke 330ml", "€3.75", "", "", drinkImg, false),
+        createCard("Coke Zero 330ml", "€3.75", "", "", drinkImg, false),
+        createCard("Fanta or 7up 330ml", "€3.75", "", "", drinkImg, false),
+        createCard("Sparkling Water", "€2.95", "", "", drinkImg, false),
+        createCard("Still Water", "€2.75", "", "", drinkImg, false),
+        createCard("FRESH JUICES", "€5 - €5.50", "Orange, Pineapple, Pineapple & mint, Strawberry, Mix Berry.", "", drinkImg, false),
+        createCard("SMOOTHIE", "€5.95", "Strawberry or Mix Berry.", "", drinkImg, false)
     ];
 
     function render(containerId, items) {
@@ -572,16 +542,13 @@
                 sideButtonHtml = `<button class="choose-sides-btn" onclick="goToSideMeals()">🍚 CHOOSE SIDES</button>`;
             }
             
-            // Apenas o preço recebe destaque (sem bordas no card)
-            let priceClass = (item.isHighlight && item.price !== "") ? 'dish-price highlight-price' : 'dish-price';
-            
             html += `
                 <div class="dish-card">
                     <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <span class="dish-name">${item.name}</span>
-                            ${item.price ? `<span class="${priceClass}">${item.price}</span>` : ''}
+                            ${item.price ? `<span class="dish-price">${item.price}</span>` : ''}
                         </div>
                         <div class="dish-desc">${item.desc}</div>
                         ${allergenHtml}
