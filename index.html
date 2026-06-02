@@ -197,7 +197,6 @@
             color: #f3cf93;
         }
 
-        /* PREÇO PADRAO - MAIS COMPACTO */
         .dish-price {
             font-size: 1rem;
             font-weight: 800;
@@ -388,13 +387,22 @@
         return { name, price, desc, allergen, img: imgSrc, showSideButton };
     }
 
+    // FUNÇÃO CORRIGIDA - Garante que vai para o topo do SIDE MEALS
     function goToSideMeals() {
+        // Encontra o botão da aba SIDE MEALS
         const sideMealsTab = document.querySelector('.tab-btn[data-tab="sidemeals"]');
         if (sideMealsTab) {
+            // Clica na aba
             sideMealsTab.click();
+            // Aguarda a troca de aba e rola para o topo
             setTimeout(() => {
+                const sideMealsSection = document.getElementById('sidemeals');
+                if (sideMealsSection) {
+                    sideMealsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Também rola o container das abas para ficar visível
                 document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            }, 150);
         }
     }
 
