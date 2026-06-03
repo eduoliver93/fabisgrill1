@@ -43,7 +43,6 @@
             margin-right: auto;
         }
 
-        /* ESTILOS MAIS CHARMOSOS PARA O TEXTO */
         .location-tag {
             display: flex;
             justify-content: center;
@@ -227,6 +226,22 @@
             font-size: 1.1rem;
             font-weight: 700;
             color: #f3cf93;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .fire-icon {
+            font-size: 1rem;
+            display: inline-block;
+            animation: flicker 1.5s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 2px #ff6600; }
+            50% { opacity: 0.8; text-shadow: 0 0 6px #ff3300; }
+            100% { opacity: 1; text-shadow: 0 0 2px #ff6600; }
         }
 
         .dish-price {
@@ -420,8 +435,21 @@
     const kidsImg = "images/kids-placeholder.jpg";
     const toppingImg = "images/topping-placeholder.jpg";
 
+    // Lista de pratos que recebem o 🔥 (foguinho)
+    const hotItems = [
+        "PICANHA SIMPLES",
+        "PICANHA DA CASA", 
+        "FEIJOADA TRADICIONAL",
+        "PARMEGIANA",
+        "BIFE OU FRANGO COM CREME DE MILHO",
+        "MILANESA (CARNE OU FRANGO)",
+        "PF BIFE OU FRANGO ACEBOLADO"
+    ];
+
     function createCard(name, price, desc, allergen, imgSrc, showSideButton = false) {
-        return { name, price, desc, allergen, img: imgSrc, showSideButton };
+        // Verifica se o prato está na lista dos mais pedidos
+        const isHot = hotItems.includes(name.toUpperCase());
+        return { name, price, desc, allergen, img: imgSrc, showSideButton, isHot };
     }
 
     function goToSideMeals() {
@@ -582,12 +610,18 @@
                 sideButtonHtml = `<button class="choose-sides-btn" onclick="goToSideMeals()">🍚 CHOOSE SIDES</button>`;
             }
             
+            // Adiciona o foguinho se o prato for mais pedido
+            let nameHtml = item.name;
+            if (item.isHot) {
+                nameHtml = `<span class="fire-icon">🔥</span> ${item.name}`;
+            }
+            
             html += `
                 <div class="dish-card">
                     <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
-                            <span class="dish-name">${item.name}</span>
+                            <span class="dish-name">${nameHtml}</span>
                             ${item.price ? `<span class="dish-price">${item.price}</span>` : ''}
                         </div>
                         <div class="dish-desc">${item.desc}</div>
