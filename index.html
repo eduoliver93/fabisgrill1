@@ -663,6 +663,21 @@
         drinks: document.getElementById('drinks')
     };
 
+    // Função para rolar suavemente até o topo da seção ativa
+    function scrollToActiveSectionTop() {
+        // Encontra a seção que está ativa
+        const activeSection = document.querySelector('.menu-section.active-section');
+        if (activeSection) {
+            // Calcula a posição do topo da seção ativa
+            const sectionTop = activeSection.offsetTop;
+            // Rola suavemente até o topo da seção
+            window.scrollTo({
+                top: sectionTop - 80, // 80px de margem para não ficar colado no topo
+                behavior: 'smooth'
+            });
+        }
+    }
+
     function activateTab(tabId) {
         Object.values(sectionsMap).forEach(sec => { if(sec) sec.classList.remove('active-section'); });
         if(sectionsMap[tabId]) sectionsMap[tabId].classList.add('active-section');
@@ -670,6 +685,11 @@
             btn.classList.remove('active');
             if(btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
         });
+        
+        // Rola suavemente até o topo da seção ativa após trocar de aba
+        setTimeout(() => {
+            scrollToActiveSectionTop();
+        }, 100);
     }
 
     tabs.forEach(btn => {
@@ -678,7 +698,6 @@
             const tabId = btn.getAttribute('data-tab');
             if(tabId && sectionsMap[tabId]) {
                 activateTab(tabId);
-                document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
