@@ -200,6 +200,12 @@
             transform: scale(0.99);
         }
 
+        /* Container da imagem com posição relativa para o botão */
+        .image-container {
+            position: relative;
+            display: block;
+        }
+
         .dish-img {
             width: 100%;
             height: auto;
@@ -207,6 +213,85 @@
             object-fit: contain;
             background: #2a211b;
             display: block;
+        }
+
+        /* Botão de ampliar imagem - VERSÃO MENOR */
+        .zoom-btn {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            border: none;
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: normal;
+        }
+
+        .zoom-btn:active {
+            transform: scale(0.95);
+            background: rgba(224,124,31,0.8);
+        }
+
+        /* Lightbox (modal de imagem ampliada) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-caption {
+            margin-top: 1rem;
+            color: #f3b33d;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: bold;
+        }
+
+        .close-lightbox:hover {
+            color: #e07c1f;
         }
 
         .dish-info {
@@ -330,7 +415,7 @@
         <img class="hero-logo" src="logo-fabis.png" alt="Fabi's Grill">
         
         <div class="location-tag">
-            <span> 🇧🇷 BRAZILIAN EXPERINCE</span>
+            <span> 🇧🇷 BRAZILIAN EXPERIENCE</span>
         </div>
         <div class="sub">✦ Fire · Flavor · Soul ✦</div>
         
@@ -375,6 +460,13 @@
         <span>📋 Allergens: G1(Gluten) | D(Dairy) | E(Eggs) | SS(Sulphites) | MS(Mustard) | F(Fish) | SB(Sesame) | N(Nuts)</span><br>
         <span>🍽️ All dishes go with crisp onion and spring onion on the top</span>
     </div>
+</div>
+
+<!-- Lightbox para imagens ampliadas -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="close-lightbox" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
 </div>
 
 <script>
@@ -442,6 +534,34 @@
         "MILANESA (CARNE/FRANGO)",
         "PF BIFE/FRANGO ACEBOLADO"
     ];
+
+    // Função para abrir o lightbox com a imagem ampliada
+    function openLightbox(imgSrc, itemName) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        
+        lightboxImg.src = imgSrc;
+        lightboxCaption.textContent = itemName;
+        lightbox.classList.add('active');
+        
+        // Prevenir scroll do body quando lightbox estiver aberto
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Função para fechar o lightbox
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Fechar lightbox com tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    });
 
     function createCard(name, price, desc, allergen, imgSrc, showSideButton = false) {
         // Verifica se o prato está na lista dos mais pedidos
@@ -615,7 +735,10 @@
             
             html += `
                 <div class="dish-card">
-                    <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy">
+                    <div class="image-container">
+                        <img class="dish-img" src="${item.img}" alt="${item.name}" loading="lazy">
+                        <button class="zoom-btn" onclick="openLightbox('${item.img}', '${item.name.replace(/'/g, "\\'")}')">🔍</button>
+                    </div>
                     <div class="dish-info">
                         <div class="dish-header">
                             <span class="dish-name">${nameHtml}</span>
@@ -662,14 +785,11 @@
 
     // Função para rolar suavemente até o topo da seção ativa
     function scrollToActiveSectionTop() {
-        // Encontra a seção que está ativa
         const activeSection = document.querySelector('.menu-section.active-section');
         if (activeSection) {
-            // Calcula a posição do topo da seção ativa
             const sectionTop = activeSection.offsetTop;
-            // Rola suavemente até o topo da seção
             window.scrollTo({
-                top: sectionTop - 80, // 80px de margem para não ficar colado no topo
+                top: sectionTop - 80,
                 behavior: 'smooth'
             });
         }
@@ -683,7 +803,6 @@
             if(btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
         });
         
-        // Rola suavemente até o topo da seção ativa após trocar de aba
         setTimeout(() => {
             scrollToActiveSectionTop();
         }, 100);
