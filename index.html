@@ -22,13 +22,13 @@
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 1rem 1rem 3rem;
+            padding: 0.5rem 1rem 3rem;  /* REDUZIDO: padding-top de 1rem para 0.5rem */
         }
 
-       .hero {
+        .hero {
             text-align: center;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
+            margin-top: 0;           /* Remove espaço acima */
+            margin-bottom: 0.25rem;  /* REDUZIDO: espaço abaixo da logo */
             padding-top: 0;
         }
 
@@ -37,7 +37,7 @@
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
-            margin: 1rem 0;
+            margin: 0.5rem 0;        /* REDUZIDO: margin de 1rem para 0.5rem */
             font-size: 0.9rem;
             letter-spacing: 1px;
         }
@@ -45,11 +45,11 @@
         .sub {
             font-size: 1.2rem;
             font-style: italic;
-            margin: 0.5rem 0;
+            margin: 0.25rem 0;       /* REDUZIDO */
         }
 
         .badge-location {
-            margin-top: 0.8rem;
+            margin-top: 0.5rem;       /* REDUZIDO: de 0.8rem para 0.5rem */
             font-size: 0.8rem;
             color: #f3b33d;
             display: flex;
@@ -272,7 +272,7 @@
         }
 
         @media (min-width: 768px) {
-            .container { padding: 1.5rem 2rem 3rem; }
+            .container { padding: 0.5rem 2rem 3rem; }
             .cards-grid { gap: 1.5rem; }
         }
     </style>
@@ -280,7 +280,7 @@
 <body>
 <div class="container">
     <div class="hero">
-        <img src="logo-fabis.png" alt="Fabi's Grill" style="width: 200px; max-width: 85%; height: auto; margin-bottom: 0.75rem; border-radius: 16px;">
+        <img src="logo-fabis.png" alt="Fabi's Grill" style="width: 180px; max-width: 80%; height: auto; margin-bottom: 0.25rem; border-radius: 16px;">
         <div class="location-tag">
             <span>📍 TEMPLE BAR · DUBLIN</span>
             <span>🍖 BRAZILIAN STEAKHOUSE</span>
@@ -389,20 +389,15 @@
         return { name, price, desc, allergen, img: imgSrc, showSideButton };
     }
 
-    // FUNÇÃO CORRIGIDA - Garante que vai para o topo do SIDE MEALS
     function goToSideMeals() {
-        // Encontra o botão da aba SIDE MEALS
         const sideMealsTab = document.querySelector('.tab-btn[data-tab="sidemeals"]');
         if (sideMealsTab) {
-            // Clica na aba
             sideMealsTab.click();
-            // Aguarda a troca de aba e rola para o topo
             setTimeout(() => {
                 const sideMealsSection = document.getElementById('sidemeals');
                 if (sideMealsSection) {
                     sideMealsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-                // Também rola o container das abas para ficar visível
                 document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 150);
         }
