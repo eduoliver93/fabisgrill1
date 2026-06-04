@@ -342,8 +342,25 @@
             flex-wrap: wrap;
         }
 
+        /* ESTILO DO BEST SELLER */
+        .hot-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: linear-gradient(135deg, #e07c1f, #c0392b);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            margin-left: 0.3rem;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .fire-icon {
-            font-size: 1rem;
+            font-size: 0.9rem;
             display: inline-block;
             animation: flicker 1.5s infinite;
         }
@@ -404,7 +421,6 @@
             background: #f3b33d;
         }
 
-        /* Botão ABOUT US */
         .about-btn {
             background: linear-gradient(135deg, #2c1e12, #1a120b);
             border: 2px solid #e07c1f;
@@ -430,7 +446,6 @@
             color: white;
         }
 
-        /* Modal About Us */
         .about-modal {
             display: none;
             position: fixed;
@@ -645,7 +660,6 @@
         <span>🍽️ All dishes go with crisp onion and spring onion on the top</span>
     </div>
 
-    <!-- BOTÃO ABOUT US -->
     <button class="about-btn" onclick="openAboutModal()">📖 ABOUT US</button>
 
     <div class="developer-credit">
@@ -657,7 +671,6 @@
     </div>
 </div>
 
-<!-- MODAL ABOUT US -->
 <div id="aboutModal" class="about-modal" onclick="closeAboutModalOnClick(event)">
     <div class="about-content">
         <button class="close-about" onclick="closeAboutModal()">✕</button>
@@ -697,7 +710,6 @@
     </div>
 </div>
 
-<!-- Lightbox para imagens ampliadas -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <button class="close-lightbox" onclick="closeLightbox()">✕</button>
     <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -761,6 +773,7 @@
     const kidsImg = "images/kids-placeholder.jpg";
     const toppingImg = "images/topping-placeholder.jpg";
 
+    // Lista de pratos que recebem o 🔥 e BEST SELLER
     const hotItems = [
         "PICANHA SIMPLES",
         "PICANHA DA CASA", 
@@ -771,7 +784,6 @@
         "PF BIFE/FRANGO ACEBOLADO"
     ];
 
-    // Funções About Us
     function openAboutModal() {
         document.getElementById('aboutModal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -975,9 +987,13 @@
                 sideButtonHtml = `<button class="choose-sides-btn" onclick="goToSideMeals()">🍚 CHOOSE SIDES</button>`;
             }
             
+            // Nome do prato com BEST SELLER badge
             let nameHtml = item.name;
             if (item.isHot) {
-                nameHtml = `<span class="fire-icon">🔥</span> ${item.name}`;
+                nameHtml = `
+                    <span class="fire-icon">🔥</span> ${item.name}
+                    <span class="hot-badge">BEST SELLER</span>
+                `;
             }
             
             html += `
