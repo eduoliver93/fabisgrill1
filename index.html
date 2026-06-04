@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Fabi's Grill | Mobile Menu - Temple Bar, Dublin</title>
     <style>
         * {
@@ -17,6 +17,8 @@
             font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
             color: #f5ede0;
             scroll-behavior: smooth;
+            /* Impede zoom por gestos */
+            touch-action: pan-x pan-y; /* Permite apenas scroll, não zoom */
         }
 
         .container {
@@ -41,6 +43,8 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
+            /* Impede zoom na logo */
+            touch-action: manipulation;
         }
 
         .location-tag {
@@ -143,6 +147,7 @@
             font-family: inherit;
             white-space: nowrap;
             flex-shrink: 0;
+            touch-action: manipulation;
         }
 
         .tab-btn:active {
@@ -213,9 +218,11 @@
             object-fit: contain;
             background: #2a211b;
             display: block;
+            /* Impede zoom na imagem */
+            touch-action: manipulation;
         }
 
-        /* Botão de ampliar imagem - VERSÃO MENOR */
+        /* Botão de ampliar imagem */
         .zoom-btn {
             position: absolute;
             bottom: 6px;
@@ -235,6 +242,7 @@
             align-items: center;
             gap: 3px;
             font-weight: normal;
+            touch-action: manipulation;
         }
 
         .zoom-btn:active {
@@ -371,6 +379,7 @@
             width: 100%;
             text-align: center;
             display: inline-block;
+            touch-action: manipulation;
         }
 
         .choose-sides-btn:active {
@@ -388,7 +397,7 @@
             line-height: 1.4;
         }
 
-        /* Developed by EOTECH - COM LOGO */
+        /* Developed by EOTECH */
         .developer-credit {
             text-align: center;
             margin-top: 1rem;
@@ -495,7 +504,7 @@
         <span>🍽️ All dishes go with crisp onion and spring onion on the top</span>
     </div>
 
-    <!-- DEVELOPED BY EOTECH COM LOGO -->
+    <!-- DEVELOPED BY EOTECH -->
     <div class="developer-credit">
         <img class="developer-logo" src="logo-eotech.png" alt="EOTECH">
         <div class="developer-text">
