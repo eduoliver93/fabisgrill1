@@ -17,8 +17,8 @@
             font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
             color: #f5ede0;
             scroll-behavior: smooth;
-            /* Impede zoom por gestos */
-            touch-action: pan-x pan-y; /* Permite apenas scroll, não zoom */
+            /* Impede zoom por gestos fora do lightbox */
+            touch-action: pan-x pan-y;
         }
 
         .container {
@@ -43,7 +43,6 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            /* Impede zoom na logo */
             touch-action: manipulation;
         }
 
@@ -205,7 +204,6 @@
             transform: scale(0.99);
         }
 
-        /* Container da imagem com posição relativa para o botão */
         .image-container {
             position: relative;
             display: block;
@@ -218,11 +216,9 @@
             object-fit: contain;
             background: #2a211b;
             display: block;
-            /* Impede zoom na imagem */
             touch-action: manipulation;
         }
 
-        /* Botão de ampliar imagem */
         .zoom-btn {
             position: absolute;
             bottom: 6px;
@@ -250,7 +246,7 @@
             background: rgba(224,124,31,0.8);
         }
 
-        /* Lightbox (modal de imagem ampliada) */
+        /* Lightbox (modal de imagem ampliada) - COM ZOOM PERMITIDO */
         .lightbox {
             display: none;
             position: fixed;
@@ -270,12 +266,28 @@
             display: flex;
         }
 
-        .lightbox-img {
+        /* Container do lightbox que permite zoom */
+        .lightbox-content {
             max-width: 90%;
             max-height: 80%;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: pan-x pan-y pinch-zoom;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 16px;
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            /* Permite zoom no mobile dentro do lightbox */
+            touch-action: pan-x pan-y pinch-zoom;
         }
 
         .lightbox-caption {
@@ -289,17 +301,26 @@
         .close-lightbox {
             position: absolute;
             top: 20px;
-            right: 30px;
-            font-size: 2rem;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.8rem;
             color: white;
             cursor: pointer;
-            background: none;
+            background: rgba(0,0,0,0.6);
             border: none;
+            border-radius: 50%;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            touch-action: manipulation;
         }
 
-        .close-lightbox:hover {
-            color: #e07c1f;
+        .close-lightbox:active {
+            transform: scale(0.95);
+            background: rgba(224,124,31,0.8);
         }
 
         .dish-info {
@@ -397,7 +418,6 @@
             line-height: 1.4;
         }
 
-        /* Developed by EOTECH */
         .developer-credit {
             text-align: center;
             margin-top: 1rem;
@@ -504,7 +524,6 @@
         <span>🍽️ All dishes go with crisp onion and spring onion on the top</span>
     </div>
 
-    <!-- DEVELOPED BY EOTECH -->
     <div class="developer-credit">
         <img class="developer-logo" src="logo-eotech.png" alt="EOTECH">
         <div class="developer-text">
@@ -517,7 +536,9 @@
 <!-- Lightbox para imagens ampliadas -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <button class="close-lightbox" onclick="closeLightbox()">✕</button>
-    <img id="lightbox-img" class="lightbox-img" src="" alt="">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="">
+    </div>
     <div id="lightbox-caption" class="lightbox-caption"></div>
 </div>
 
@@ -616,7 +637,6 @@
     });
 
     function createCard(name, price, desc, allergen, imgSrc, showSideButton = false) {
-        // Verifica se o prato está na lista dos mais pedidos
         const isHot = hotItems.includes(name.toUpperCase());
         return { name, price, desc, allergen, img: imgSrc, showSideButton, isHot };
     }
@@ -779,7 +799,6 @@
                 sideButtonHtml = `<button class="choose-sides-btn" onclick="goToSideMeals()">🍚 CHOOSE SIDES</button>`;
             }
             
-            // Adiciona o foguinho se o prato for mais pedido
             let nameHtml = item.name;
             if (item.isHot) {
                 nameHtml = `<span class="fire-icon">🔥</span> ${item.name}`;
@@ -835,7 +854,6 @@
         drinks: document.getElementById('drinks')
     };
 
-    // Função para rolar suavemente até o topo da seção ativa
     function scrollToActiveSectionTop() {
         const activeSection = document.querySelector('.menu-section.active-section');
         if (activeSection) {
